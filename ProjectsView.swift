@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-//step 3 a projects view show prjects that are open or closed
+// a projects view show prjects that are open or closed
 struct ProjectsView: View {
-    //step 4 open or closed projects? we also need a way of speaking with
+    // open or closed projects? we also need a way of speaking with
     //core data to grab all open or closed projects
     let showClosedProjects: Bool
     let projects: FetchRequest<Project> //this fetch request is just a struct
@@ -22,7 +22,7 @@ struct ProjectsView: View {
     }
     
     var body: some View {
-        //step 6 lets display some test data
+        //lets display some test data
         NavigationView {
             List {
                 ForEach(projects.wrappedValue) { project in
@@ -46,7 +46,7 @@ struct ProjectsView: View {
 }
 
 struct ProjectsView_Previews: PreviewProvider {
-    //step 5, give me some sample data in memory so we can start querying in project view
+    //give me some sample data in memory so we can start querying in project view
     static var dataController = DataController.preview
     static var previews: some View {
         ProjectsView(showClosedProjects: false)

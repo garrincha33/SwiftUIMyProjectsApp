@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-//step 7 create a tabview
 struct ContentView: View {
     var body: some View {
         TabView {
