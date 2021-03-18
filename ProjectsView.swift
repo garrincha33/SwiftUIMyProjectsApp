@@ -25,16 +25,17 @@ struct ProjectsView: View {
         //lets display some test data
         NavigationView {
             List {
+                //step 8, clean up using new created properties
                 ForEach(projects.wrappedValue) { project in
-                    Section(header: Text(project.title ?? "")) {
+                    Section(header: Text(project.projectTitle)) {
                         //convert set to array with all objects, CoreData
                         //uses the old ObjC all objects so we have to cast as an [item]
                         //core data and swift optionals
                         //are very different hence the nil colle
                         //we need a value before saving
-                        ForEach(project.items?.allObjects as? [Item] ?? []) {
+                        ForEach(project.projectItems) {
                             item in
-                            Text(item.title ?? "")
+                            Text(item.itemTitle)
                         }
                     }
                 }
