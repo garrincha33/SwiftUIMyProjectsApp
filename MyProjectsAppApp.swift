@@ -6,13 +6,11 @@
 //
 
 import SwiftUI
-//step 8 when our app launches we want to create a data controller
+//when our app launches we want to create a data controller
 @main
 struct MyProjectsAppApp: App {
-    //step 8
     //state creates and owns the data controller, and stays alive throughout
     @StateObject var dataController: DataController
-    //step 9
     init() {
         let dataController = DataController()
         _dataController = StateObject(wrappedValue: dataController)
@@ -23,12 +21,10 @@ struct MyProjectsAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-            //step 10
                 //this is used for swiftUI to read coredata values
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 //this is for our own code to create core data values
                 .environmentObject(dataController)
-            //step 11
             //next is sync devices on all dvices sign into simulator and also
             //add icloud and background capabilties click cloudkit and remote notifications
         }
