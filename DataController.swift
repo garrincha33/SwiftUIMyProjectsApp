@@ -5,13 +5,12 @@
 //  Created by Richard Price on 17/03/2021.
 //
 
-//step 1 create a observable object so any swiftUI file can listen for changes
+//create a observable object so any swiftUI file can listen for changes
 
 import CoreData
 import SwiftUI
 
 class DataController: ObservableObject {
-    //step 2
     //manages local core data services and also to the cloud, share automatiaclly
     let container: NSPersistentCloudKitContainer
     init(inMemory: Bool = false) {
@@ -27,7 +26,6 @@ class DataController: ObservableObject {
             }
         }
     }
-    //step 4
     //this just gives us sample data straight away which is really helpful in swiftUI
     static var preview: DataController = {
         let dataController = DataController(inMemory: true)
@@ -39,7 +37,6 @@ class DataController: ObservableObject {
         }
         return dataController
     }()
-    //step 3
     func createSampleData() throws {
         //effectvly the pool of data thats been loaded from disk, thats active on the fly
         //only gets written once we call save, written to storage
@@ -61,20 +58,20 @@ class DataController: ObservableObject {
         }
         try viewContext.save()
     }
-    //step 5
+    //
     //check for changes first before saving, only do the work if it has to do the work
     func save() {
         if container.viewContext.hasChanges {
             try? container.viewContext.save()
         }
     }
-    //step 6 delete 1 specifc item from our view context, all of these objects inherit from
+    // delete 1 specifc item from our view context, all of these objects inherit from
     //NSManagedObject, we are basically making sure that nothing leaks throughout our project
     //not diving deep into the view context you just delete straight on the controller
     func delete(_ object: NSManagedObject) {
         container.viewContext.delete(object)
     }
-    //step 7 we need a way to clean up the sample data after we are done, so we have fresh
+    // we need a way to clean up the sample data after we are done, so we have fresh
     //test data when ever its called
     //we need a fetch request to get all the items we have, fetch all items in my database
     //then this is wrapped in a batch delete request
