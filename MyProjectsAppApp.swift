@@ -25,8 +25,6 @@ struct MyProjectsAppApp: App {
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 //this is for our own code to create core data values
                 .environmentObject(dataController)
-            //next is sync devices on all dvices sign into simulator and also
-            //add icloud and background capabilties click cloudkit and remote notifications
         }
     }
 }

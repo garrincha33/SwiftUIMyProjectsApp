@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+
 // a projects view show prjects that are open or closed
 struct ProjectsView: View {
+    //step 2  create tags for your projects view, again needs to be optional to match app storage otherwise your comparing 2 completly different types
+    static let openTag: String? = "Open"
+    static let closedTag: String? = "Closed"
     // open or closed projects? we also need a way of speaking with
     //core data to grab all open or closed projects
     let showClosedProjects: Bool
@@ -25,7 +29,7 @@ struct ProjectsView: View {
         //lets display some test data
         NavigationView {
             List {
-                //step 8, clean up using new created properties
+                // clean up using new created properties
                 ForEach(projects.wrappedValue) { project in
                     Section(header: Text(project.projectTitle)) {
                         //convert set to array with all objects, CoreData
