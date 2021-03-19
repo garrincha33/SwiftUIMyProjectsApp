@@ -7,9 +7,18 @@
 
 import SwiftUI
 struct ContentView: View {
+    
+    //step 4 - appstorage automatically tracks
+    @SceneStorage("selectedView") var selectedView: String?
+    // which automatically reads and writes values using UserDefaults so they persist between application runs, here though using scene storage is better because we attach
+    //to indivdual scene storage rather than once instance shared through the App
     var body: some View {
-        TabView {
-            HomeView()
+        //step 5 amend your tabView to use the selectedView, the app will now remember
+        //which tab it was previously on when closed
+        TabView(selection: $selectedView) {
+            //step 3 add your tags to your views
+            HomeView().tag(HomeView.tag)
+                .tag(ProjectsView.openTag)
                 .tabItem {
                     Image(systemName: "house")
                     Text("Home")
@@ -20,6 +29,7 @@ struct ContentView: View {
                     Text("Open")
                 }
             ProjectsView(showClosedProjects: true)
+                .tag(ProjectsView.closedTag)
                 .tabItem {
                     Image(systemName: "checkmark")
                     Text("Closed")
@@ -27,7 +37,6 @@ struct ContentView: View {
         }
     }
 }
-//step 8 add our preview content
 struct ContentView_Previews: PreviewProvider {
     static var dataController = DataController.preview
     static var previews: some View {
