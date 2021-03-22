@@ -9,7 +9,7 @@ import SwiftUI
 
 // a projects view show prjects that are open or closed
 struct ProjectsView: View {
-    //step 2  create tags for your projects view, again needs to be optional to match app storage otherwise your comparing 2 completly different types
+    //  create tags for your projects view, again needs to be optional to match app storage otherwise your comparing 2 completly different types
     static let openTag: String? = "Open"
     static let closedTag: String? = "Closed"
     // open or closed projects? we also need a way of speaking with
@@ -38,8 +38,15 @@ struct ProjectsView: View {
                         //are very different hence the nil colle
                         //we need a value before saving
                         ForEach(project.projectItems) {
+                            //step 6 wrap our item into a nav link
                             item in
-                            Text(item.itemTitle)
+                            //NavigationLink(
+                            //destination: EditItemView(item: item)) {
+                            //Text(item.itemTitle)
+                            //step 10:- finally to see the change use the observed item
+                            //to see the change
+                            ItemRowView(item: item)
+                            //}
                         }
                     }
                 }

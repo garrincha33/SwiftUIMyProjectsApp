@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    //step 1 create a homeview tag, needs to be optional so it matches the app storage optional
+    // create a homeview tag, needs to be optional so it matches the app storage optional
     static let tag: String? = "Home"
     @EnvironmentObject var dataController: DataController
     var body: some View {
@@ -22,7 +22,6 @@ struct HomeView: View {
         }
     }
 }
-
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
