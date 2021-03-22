@@ -8,15 +8,15 @@
 import SwiftUI
 struct ContentView: View {
     
-    //step 4 - appstorage automatically tracks
+    // - appstorage automatically tracks
     @SceneStorage("selectedView") var selectedView: String?
     // which automatically reads and writes values using UserDefaults so they persist between application runs, here though using scene storage is better because we attach
     //to indivdual scene storage rather than once instance shared through the App
     var body: some View {
-        //step 5 amend your tabView to use the selectedView, the app will now remember
+        // amend your tabView to use the selectedView, the app will now remember
         //which tab it was previously on when closed
         TabView(selection: $selectedView) {
-            //step 3 add your tags to your views
+            // add your tags to your views
             HomeView().tag(HomeView.tag)
                 .tag(ProjectsView.openTag)
                 .tabItem {
