@@ -25,6 +25,13 @@ struct MyProjectsAppApp: App {
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 //this is for our own code to create core data values
                 .environmentObject(dataController)
+            //step 5 look for the notication to change, this is when we loose our focus, goto home screen ect
+                //basically give up control, we can listen via noticiations and save any changes using on recieve
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: save)
         }
+    }
+    //step 4, create a bridging save method
+    func save(_ note: Notification) {
+        dataController.save()
     }
 }

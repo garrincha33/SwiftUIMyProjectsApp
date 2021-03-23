@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct EditItemView: View {
-    //step 1 create an item to edit and a data controller to access core data
+    //reate an item to edit and a data controller to access core data
     let item: Item
     @EnvironmentObject var dataController: DataController
-    //step 2 read the item that came in then modify it using state
+    //read the item that came in then modify it using state
     //because these have no initial values they have to be initialzed with an init
     @State private var title: String
     @State private var details: String
     @State private var priority: Int
     @State private var completed: Bool
-    //step 3 init the values with the wrapped value
+    //init the values with the wrapped value
     init(item: Item) {
         self.item = item
         _title = State(wrappedValue: item.itemTitle)
@@ -26,29 +26,32 @@ struct EditItemView: View {
         _completed = State(wrappedValue: item.completed)
     }
     var body: some View {
-        //step 4, create a form displaying our editing options
+        //create a form displaying our editing options
         Form {
             Section(header: Text("Basic Settings")) {
-                TextField("Item Name", text: $title)
-                TextField("Description", text: $details)
+                //step 2, using the extension Binding on change we can now update instantly
+                TextField("Item Name", text: $title.onChange{update()})
+                TextField("Description", text: $details.onChange{update()})
             }
             Section(header: Text("Prioirty")) {
-                Picker("Priority", selection: $priority) {
+                Picker("Priority", selection: $priority.onChange{update()}) {
                     Text("Low").tag(1)
                     Text("Medium").tag(2)
                     Text("High").tag(3)
                 }
             }
             Section {
-                Toggle("Mark Completed", isOn: $completed)
+                Toggle("Mark Completed", isOn: $completed.onChange{update()})
             }
         }
         .navigationTitle("Edit Title")
-        //step 8 trigger update here, after we have dismissed
+        //trigger update here, after we have dismissed
         //we will still need to make all objects conform using ObservableObject.send
-        .onDisappear(perform: update)
+        //step 3 - save the changes above here before switching views
+        .onDisappear(perform: dataController.save)
+        
     }
-    //step 7, pass back all the items in reverse like a reverse init so that we can update
+    //pass back all the items in reverse like a reverse init so that we can update
     //the UI trigger the update when the editing UI dissapears
     func update() {
         //we have to use optional project here, so that the project can keep track
@@ -62,7 +65,7 @@ struct EditItemView: View {
 }
 struct EditItemView_Previews: PreviewProvider {
     static var previews: some View {
-        //step 5 pass in our example item
+        //pass in our example item
         EditItemView(item: Item.example)
     }
 }
