@@ -43,7 +43,7 @@ struct ProjectsView: View {
                             //NavigationLink(
                             //destination: EditItemView(item: item)) {
                             //Text(item.itemTitle)
-                            //step 10:- finally to see the change use the observed item
+                            //finally to see the change use the observed item
                             //to see the change
                             ItemRowView(item: item)
                             //}
@@ -56,7 +56,6 @@ struct ProjectsView: View {
         }
     }
 }
-
 struct ProjectsView_Previews: PreviewProvider {
     //give me some sample data in memory so we can start querying in project view
     static var dataController = DataController.preview

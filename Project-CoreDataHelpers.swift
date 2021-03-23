@@ -8,7 +8,6 @@
 import Foundation
 // same helpers for project
 extension Project {
-    
     var projectTitle: String {
         title ?? ""
     }

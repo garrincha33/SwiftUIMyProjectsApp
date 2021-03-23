@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//step 9, create a new view so we can make an observable object of the link thats changing
+//create a new view so we can make an observable object of the link thats changing
 struct ItemRowView: View {
     //observable object means that someone else owns this item im just watching
     //for changes, @State means it actually owns the object
