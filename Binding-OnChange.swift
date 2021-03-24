@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//step 1 create a custom binding
+//create a custom binding
 extension Binding {
     func onChange(_ handler: @escaping () -> Void) -> Binding<Value> {
         Binding (

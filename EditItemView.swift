@@ -29,7 +29,7 @@ struct EditItemView: View {
         //create a form displaying our editing options
         Form {
             Section(header: Text("Basic Settings")) {
-                //step 2, using the extension Binding on change we can now update instantly
+                //using the extension Binding on change we can now update instantly
                 TextField("Item Name", text: $title.onChange{update()})
                 TextField("Description", text: $details.onChange{update()})
             }
@@ -47,7 +47,7 @@ struct EditItemView: View {
         .navigationTitle("Edit Title")
         //trigger update here, after we have dismissed
         //we will still need to make all objects conform using ObservableObject.send
-        //step 3 - save the changes above here before switching views
+        //save the changes above here before switching views
         .onDisappear(perform: dataController.save)
         
     }

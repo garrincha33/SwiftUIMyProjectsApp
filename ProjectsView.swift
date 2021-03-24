@@ -31,7 +31,8 @@ struct ProjectsView: View {
             List {
                 // clean up using new created properties
                 ForEach(projects.wrappedValue) { project in
-                    Section(header: Text(project.projectTitle)) {
+                    //step 4 use the headerview instead of standard title
+                    Section(header: ProjectHeaderView(project: project)) {
                         //convert set to array with all objects, CoreData
                         //uses the old ObjC all objects so we have to cast as an [item]
                         //core data and swift optionals
