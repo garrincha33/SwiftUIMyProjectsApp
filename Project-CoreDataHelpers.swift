@@ -8,6 +8,11 @@
 import Foundation
 // same helpers for project
 extension Project {
+    //step 4 add our color scheme so we can use these colors throughout the project rather
+    //than tied to one View
+    static let colors = ["Pink", "Purple", "Red", "Orange", "Gold", "Green", "Teal", "Light Blue", "Dark Blue",
+    "Midnight", "Dark Gray", "Gray"]
+    
     var projectTitle: String {
         title ?? ""
     }
