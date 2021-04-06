@@ -29,9 +29,8 @@ struct ProjectsView: View {
         //lets display some test data
         NavigationView {
             List {
-                // clean up using new created properties
                 ForEach(projects.wrappedValue) { project in
-                    //step 4 use the headerview instead of standard title
+                    //use the headerview instead of standard title
                     Section(header: ProjectHeaderView(project: project)) {
                         //convert set to array with all objects, CoreData
                         //uses the old ObjC all objects so we have to cast as an [item]
@@ -39,15 +38,9 @@ struct ProjectsView: View {
                         //are very different hence the nil colle
                         //we need a value before saving
                         ForEach(project.projectItems) {
-                            //step 6 wrap our item into a nav link
                             item in
-                            //NavigationLink(
-                            //destination: EditItemView(item: item)) {
-                            //Text(item.itemTitle)
-                            //finally to see the change use the observed item
-                            //to see the change
                             ItemRowView(item: item)
-                            //}
+                        
                         }
                     }
                 }

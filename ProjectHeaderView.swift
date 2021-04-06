@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
-//step 1 add color assets and crate a ProjectHeaderView
+//add color assets and crate a ProjectHeaderView
 struct ProjectHeaderView: View {
-    //step 2 we need to observe our project view
+    //we need to observe our project view
     @ObservedObject var project: Project
     
     var body: some View {
-        //step 3 crete UI for header, also using our imported colors
+        //crete UI for header, also using our imported colors
         HStack {
             VStack(alignment: .leading) {
                 Text(project.projectTitle)
@@ -20,7 +20,8 @@ struct ProjectHeaderView: View {
                     .accentColor(Color(project.projectColor))
             }
             Spacer()
-            NavigationLink(destination: EmptyView()) {
+            //step 11, remove the empty view and push to the actual project view instead
+            NavigationLink(destination: EditProjectView(project: project)) {
                 Image(systemName: "square.and.pencil")
                     .imageScale(.large)
             }
