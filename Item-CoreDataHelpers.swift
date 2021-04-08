@@ -8,6 +8,11 @@
 import Foundation
 //helpers are all GETTER only which is very safe
 extension Item {
+    //step 1 create an enum for our sorting options
+    enum SortOrder {
+        case optimized, title, creationDate
+    }
+    
     var itemTitle: String {
         title ?? "New Item"
     }
