@@ -22,12 +22,14 @@ extension Project {
     var projectColor: String {
         color ?? "Light Blue"
     }
-    // this will remove the need for some annoying code in project view
+    //step 2 create a new project items sort
     var projectItems: [Item] {
-        let itemsArray = items?.allObjects as? [Item] ?? []
-        // create custom sorting options, eg higher prioity items at the top
-        // the goal is to return true if first comes before second
-        return itemsArray.sorted { first, second  in
+        items?.allObjects as? [Item] ?? []
+    }
+    //step 3 rename old default to something more intuative
+    // this will remove the need for some annoying code in project view
+    var projectItemsDefaultSorted: [Item] {
+            projectItems.sorted { first, second in
             if first.completed == false {
                 if second.completed == true {
                     return true

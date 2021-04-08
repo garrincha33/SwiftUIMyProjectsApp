@@ -13,9 +13,12 @@ struct ProjectsView: View {
     static let openTag: String? = "Open"
     static let closedTag: String? = "Closed"
     
-    //step 1 we need access to our datacontroller and managedObject context
+    //we need access to our datacontroller and managedObject context
     @EnvironmentObject var dataController: DataController
     @Environment(\.managedObjectContext) var managedObjectContext
+    //step 4 create a new order default to optimzied and a bool for showing
+    @State private var showingSortOrder = false
+    @State private var sortOrder = Item.SortOrder.optimized
     
     // open or closed projects? we also need a way of speaking with
     //core data to grab all open or closed projects
@@ -42,10 +45,9 @@ struct ProjectsView: View {
                         //core data and swift optionals
                         //are very different hence the nil colle
                         //we need a value before saving
-                        ForEach(project.projectItems) {
-                            item in
+                        ForEach(items(for: project)) { item in
                             ItemRowView(item: item)
-                            //step 3 add an onDelete and flush to disk straightaway
+                            //add an onDelete and flush to disk straightaway
                             ///we can delete items from Core Data without any risk of that array changing – even if you call processPendingChanges() for some reason, the indices in our array won’t change
                         }.onDelete { offsets in
                             //this offers us a second layer of delete protection
@@ -57,7 +59,6 @@ struct ProjectsView: View {
                             }
                             dataController.save()
                         }
-                        //step 4 - create an add new item button after delete
                         if showClosedProjects == false {
                             Button {
                                 withAnimation {
@@ -75,21 +76,51 @@ struct ProjectsView: View {
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle(showClosedProjects ? "Show Closed Projects" : "Open Projects")
-            //step 2 toolbar should only work if show closed projects is false
+            //step 6 new toolbar with the extra button
             .toolbar {
-                if showClosedProjects == false {
-                    Button {
-                        withAnimation {
-                            let project = Project(context: managedObjectContext)
-                            project.closed = false
-                            project.creationDate = Date()
-                            dataController.save()
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if showClosedProjects == false {
+                        Button {
+                            withAnimation {
+                                let project = Project(context: managedObjectContext)
+                                project.closed = false
+                                project.creationDate = Date()
+                                dataController.save()
+                            }
+                        } label: {
+                            Label("Add Project", systemImage: "plus")
                         }
+                    }
+                }
+
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        showingSortOrder.toggle()
                     } label: {
-                        Label("Add Project", systemImage: "plus")
+                        Label("Sort", systemImage: "arrow.up.arrow.down")
                     }
                 }
             }
+            //step 7 attach action sheet (currently a bug defaulting to home screen, NEED TO FIX"
+            //works in simulator
+            .actionSheet(isPresented: $showingSortOrder) {
+                ActionSheet(title: Text("Sort items"), message: nil, buttons: [
+                    .default(Text("Optimized")) { sortOrder = .optimized },
+                    .default(Text("Creation Date")) { sortOrder = .creationDate },
+                    .default(Text("Title")) { sortOrder = .title }
+                ])
+            }
+        }
+    }
+    //step 5 create an items function which we will be sorting
+    func items(for project: Project) -> [Item] {
+        switch sortOrder {
+        case .title:
+            return project.projectItems.sorted { $0.itemTitle < $1.itemTitle }
+        case .creationDate:
+            return project.projectItems.sorted { $0.itemCreationDate < $1.itemCreationDate }
+        case .optimized:
+            return project.projectItemsDefaultSorted
         }
     }
 }
