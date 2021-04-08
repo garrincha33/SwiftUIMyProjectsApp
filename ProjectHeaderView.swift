@@ -4,7 +4,7 @@
 //
 //  Created by Richard Price on 24/03/2021.
 //
-
+/// this is some nice text test
 import SwiftUI
 //add color assets and crate a ProjectHeaderView
 struct ProjectHeaderView: View {
@@ -20,7 +20,6 @@ struct ProjectHeaderView: View {
                     .accentColor(Color(project.projectColor))
             }
             Spacer()
-            //step 11, remove the empty view and push to the actual project view instead
             NavigationLink(destination: EditProjectView(project: project)) {
                 Image(systemName: "square.and.pencil")
                     .imageScale(.large)

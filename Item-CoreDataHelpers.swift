@@ -9,7 +9,7 @@ import Foundation
 //helpers are all GETTER only which is very safe
 extension Item {
     var itemTitle: String {
-        title ?? ""
+        title ?? "New Item"
     }
     var itemsDetails: String {
         detail ?? ""
