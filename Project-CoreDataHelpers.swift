@@ -22,12 +22,9 @@ extension Project {
     var projectColor: String {
         color ?? "Light Blue"
     }
-    //step 2 create a new project items sort
     var projectItems: [Item] {
         items?.allObjects as? [Item] ?? []
     }
-    //step 3 rename old default to something more intuative
-    // this will remove the need for some annoying code in project view
     var projectItemsDefaultSorted: [Item] {
             projectItems.sorted { first, second in
             if first.completed == false {
@@ -65,6 +62,17 @@ extension Project {
         project.closed = true
         project.creationDate = Date()
         return project
+    }
+    //step 3 move projectItems into here rather than the projects view
+    func projectItems(using sortOrder: Item.SortOrder) -> [Item] {
+        switch sortOrder {
+        case .title:
+            return projectItems.sorted(by: \Item.itemTitle)
+        case .creationDate:
+            return projectItems.sorted(by: \Item.itemCreationDate)
+        case .optimized:
+            return projectItemsDefaultSorted
+        }
     }
     
 }

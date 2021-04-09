@@ -16,7 +16,6 @@ struct ProjectsView: View {
     //we need access to our datacontroller and managedObject context
     @EnvironmentObject var dataController: DataController
     @Environment(\.managedObjectContext) var managedObjectContext
-    //step 4 create a new order default to optimzied and a bool for showing
     @State private var showingSortOrder = false
     @State private var sortOrder = Item.SortOrder.optimized
     
@@ -45,14 +44,16 @@ struct ProjectsView: View {
                         //core data and swift optionals
                         //are very different hence the nil colle
                         //we need a value before saving
-                        ForEach(items(for: project)) { item in
-                            ItemRowView(item: item)
+                        ForEach(project.projectItems(using: sortOrder)) { item in
+                            //step 2 add in project aswell
+                            ItemRowView(project: project, item: item)
                             //add an onDelete and flush to disk straightaway
                             ///we can delete items from Core Data without any risk of that array changing – even if you call processPendingChanges() for some reason, the indices in our array won’t change
                         }.onDelete { offsets in
                             //this offers us a second layer of delete protection
                             //we can delete items freely as the constant array will not change
-                            let allItems = project.projectItems
+                            //Step 3 match the rows by using the sort order
+                            let allItems = project.projectItems(using: sortOrder)
                             for offset in offsets {
                                 let item = allItems[offset]
                                 dataController.delete(item)
@@ -76,7 +77,6 @@ struct ProjectsView: View {
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle(showClosedProjects ? "Show Closed Projects" : "Open Projects")
-            //step 6 new toolbar with the extra button
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if showClosedProjects == false {
@@ -101,26 +101,15 @@ struct ProjectsView: View {
                     }
                 }
             }
-            //step 7 attach action sheet (currently a bug defaulting to home screen, NEED TO FIX"
-            //works in simulator
             .actionSheet(isPresented: $showingSortOrder) {
                 ActionSheet(title: Text("Sort items"), message: nil, buttons: [
                     .default(Text("Optimized")) { sortOrder = .optimized },
                     .default(Text("Creation Date")) { sortOrder = .creationDate },
                     .default(Text("Title")) { sortOrder = .title }
                 ])
-            }
-        }
-    }
-    //step 5 create an items function which we will be sorting
-    func items(for project: Project) -> [Item] {
-        switch sortOrder {
-        case .title:
-            return project.projectItems.sorted { $0.itemTitle < $1.itemTitle }
-        case .creationDate:
-            return project.projectItems.sorted { $0.itemCreationDate < $1.itemCreationDate }
-        case .optimized:
-            return project.projectItemsDefaultSorted
+            }//step 7 add blank screen filler here after everything else so we know
+            //nothing is selected
+            SelectSomethingView()
         }
     }
 }
