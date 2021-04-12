@@ -6,7 +6,6 @@
 //
 
 import Foundation
-//Step 1 to fix a bug create a new extension of sequence
 extension Sequence {
     func sorted<Value>(by keyPath: KeyPath<Element, Value>, using areInIncreasingOrder: (Value, Value) throws -> Bool) rethrows -> [Element] {
         try self.sorted {
