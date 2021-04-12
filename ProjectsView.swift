@@ -45,14 +45,12 @@ struct ProjectsView: View {
                         //are very different hence the nil colle
                         //we need a value before saving
                         ForEach(project.projectItems(using: sortOrder)) { item in
-                            //step 2 add in project aswell
                             ItemRowView(project: project, item: item)
                             //add an onDelete and flush to disk straightaway
                             ///we can delete items from Core Data without any risk of that array changing – even if you call processPendingChanges() for some reason, the indices in our array won’t change
                         }.onDelete { offsets in
                             //this offers us a second layer of delete protection
                             //we can delete items freely as the constant array will not change
-                            //Step 3 match the rows by using the sort order
                             let allItems = project.projectItems(using: sortOrder)
                             for offset in offsets {
                                 let item = allItems[offset]
@@ -107,8 +105,7 @@ struct ProjectsView: View {
                     .default(Text("Creation Date")) { sortOrder = .creationDate },
                     .default(Text("Title")) { sortOrder = .title }
                 ])
-            }//step 7 add blank screen filler here after everything else so we know
-            //nothing is selected
+            }
             SelectSomethingView()
         }
     }

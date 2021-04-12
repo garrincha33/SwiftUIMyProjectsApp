@@ -34,6 +34,13 @@ struct ContentView: View {
                     Image(systemName: "checkmark")
                     Text("Closed")
                 }
+            //step 5 add tab to contentview
+            AwardsView()
+               .tag(AwardsView.tag)
+                .tabItem {
+                    Image(systemName: "rosette")
+                    Text("Awards")
+                }
         }
     }
 }
