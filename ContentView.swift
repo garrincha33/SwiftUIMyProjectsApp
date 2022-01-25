@@ -34,7 +34,6 @@ struct ContentView: View {
                     Image(systemName: "checkmark")
                     Text("Closed")
                 }
-            //step 5 add tab to contentview
             AwardsView()
                .tag(AwardsView.tag)
                 .tabItem {
@@ -44,11 +43,11 @@ struct ContentView: View {
         }
     }
 }
-struct ContentView_Previews: PreviewProvider {
-    static var dataController = DataController.preview
-    static var previews: some View {
-           ContentView()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
-                .environmentObject(dataController)
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var dataController = DataController.preview
+//    static var previews: some View {
+//           ContentView()
+//                .environment(\.managedObjectContext, dataController.container.viewContext)
+//                .environmentObject(dataController)
+//    }
+//}

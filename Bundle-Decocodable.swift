@@ -6,7 +6,7 @@
 //
 
 import Foundation
-//step 1 add awards json file and create an extension of bundle
+//add awards json file and create an extension of bundle
 //this is an extremely useful extension allowing you to download JSON from files that live
 //in your project (not network json it will fail across the board) but local this is perfect
 extension Bundle {

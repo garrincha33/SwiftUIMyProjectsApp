@@ -111,12 +111,12 @@ struct ProjectsView: View {
     }
 }
 
-struct ProjectsView_Previews: PreviewProvider {
-    //give me some sample data in memory so we can start querying in project view
-    static var dataController = DataController.preview
-    static var previews: some View {
-        ProjectsView(showClosedProjects: false)
-            .environment(\.managedObjectContext, dataController.container.viewContext)
-            .environmentObject(dataController)
-    }
-}
+//struct ProjectsView_Previews: PreviewProvider {
+//    //give me some sample data in memory so we can start querying in project view
+//    static var dataController = DataController.preview
+//    static var previews: some View {
+//        ProjectsView(showClosedProjects: false)
+//            .environment(\.managedObjectContext, dataController.container.viewContext)
+//            .environmentObject(dataController)
+//    }
+//}
