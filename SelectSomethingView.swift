@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-//step 6, show something in landscape when nothing selected
 struct SelectSomethingView: View {
     var body: some View {
         Text("please select something from the menu to begin")
@@ -14,9 +13,9 @@ struct SelectSomethingView: View {
             .foregroundColor(.secondary)
     }
 }
-
-struct SelectSomethingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectSomethingView()
-    }
-}
+//
+//struct SelectSomethingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SelectSomethingView()
+//    }
+//}

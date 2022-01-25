@@ -84,9 +84,9 @@ struct EditProjectView: View {
         presentationMode.wrappedValue.dismiss() //hides this screen
     }
 }
-
-struct EditProjectView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditProjectView(project: Project.example)
-    }
-}
+//
+//struct EditProjectView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EditProjectView(project: Project.example)
+//    }
+//}

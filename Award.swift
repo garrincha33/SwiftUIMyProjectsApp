@@ -6,7 +6,6 @@
 //
 
 import Foundation
-//step 2 - create a struct to render to reference the awards json file
 //we need an ID string which will return the name, 2 static properties will
 //store all the awards and the example
 struct Award: Decodable, Identifiable {

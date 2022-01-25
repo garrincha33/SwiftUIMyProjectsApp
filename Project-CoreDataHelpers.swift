@@ -63,7 +63,6 @@ extension Project {
         project.creationDate = Date()
         return project
     }
-    //step 3 move projectItems into here rather than the projects view
     func projectItems(using sortOrder: Item.SortOrder) -> [Item] {
         switch sortOrder {
         case .title:
